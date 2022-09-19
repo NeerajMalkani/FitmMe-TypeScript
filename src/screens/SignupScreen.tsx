@@ -6,11 +6,12 @@ import PreLoginHeader from "../components/common/PreLoginHeader";
 import SocialIcons from "../components/uielements/SocialIcons";
 import CustomTextBox from "../components/uielements/TextBox";
 import { Styles } from "../styles/styles";
+import { CommonValidator } from "../utils/commonvalidator";
 
 interface props {
-  route:any
-  navigation:any
-  theme:any
+  route: any;
+  navigation: any;
+  theme: any;
 }
 const SignupScreen = ({ route, navigation, theme }: props) => {
   const { colors } = theme;
@@ -39,39 +40,85 @@ const SignupScreen = ({ route, navigation, theme }: props) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [confirmSecureTextEntry, setConfirmSecureTextEntry] = useState(true);
 
-  const onFullNameChanged = (text:string) => {
+  const onFullNameChanged = (text: string) => {
     setFullName(text);
   };
 
-  const onMobileChanged = (text:string) => {
+  const onMobileChanged = (text: string) => {
     setMobile(text);
   };
 
-  const onEmailChanged = (text:string) => {
+  const onEmailChanged = (text: string) => {
     setEmail(text);
   };
 
-  const onPasswordChanged = (text:string) => {
+  const onPasswordChanged = (text: string) => {
     if (confirmPassword !== text) {
       setConfirmPasswordError(true);
       setConfirmPasswordHelperText("");
-     } 
-    //  else {
-      setPassword(text);
-    // }
+    }
+    setPassword(text);
   };
 
-  const onConfirmPasswordChanged = (text:string) => {
+  const onConfirmPasswordChanged = (text: string) => {
     if (password !== text) {
       setConfirmPasswordError(true);
-      setConfirmPasswordHelperText("");
+      setConfirmPasswordHelperText("Password does not match");
     }
-
     setConfirmPassword(text);
   };
 
-  const PasswordMaskIcon = () => {
-    return <TextInput.Icon icon={secureTextEntry ? "eye" : "eye-off"} color={colors.onBackground} size={24} onPress={() => setSecureTextEntry(!secureTextEntry)} />;
+  const PasswordMaskIcon = (type: string) => {
+    return (
+      <TextInput.Icon
+        icon={(type === "password" ? secureTextEntry : confirmSecureTextEntry) ? "eye" : "eye-off"}
+        color={colors.onBackground}
+        size={24}
+        onPress={() => {
+          (type === "password" ? secureTextEntry : confirmSecureTextEntry) ? setSecureTextEntry(!secureTextEntry) : setConfirmSecureTextEntry(!confirmSecureTextEntry);
+        }}
+      />
+    );
+  };
+
+  const OnSubmitClick = () => {
+    let arrFieldsValue = [
+      { type: "fullname", value: fullName },
+      { type: "mobile", value: mobile },
+      { type: "email", value: email },
+      { type: "password", value: password },
+      { type: "matchpassword", value: password, value2: confirmPassword },
+    ];
+
+    let responseData = CommonValidator(arrFieldsValue);
+    for (let i = 0; i < responseData.length; i++) {
+      switch (responseData[i]) {
+        case "fullname":
+          setFullNameError(true);
+          setFullNameHelperText("Please enter valid full name");
+          break;
+        case "mobile":
+          setMobileError(true);
+          setMobileHelperText("Please enter valid mobile");
+          break;
+        case "email":
+          setEmailError(true);
+          setEmailHelperText("Please enter valid email");
+          break;
+        case "password":
+          setPasswordError(true);
+          setPasswordHelperText("Please enter valid password");
+          break;
+        case "matchpassword":
+          setConfirmPasswordError(true);
+          setConfirmPasswordHelperText("Password does not match");
+          break;
+      }
+    }
+
+    if (arrFieldsValue.length) {
+      //
+    }
   };
 
   return (
@@ -132,7 +179,7 @@ const SignupScreen = ({ route, navigation, theme }: props) => {
                   tbError: passwordError,
                   tbReturnKey: "next",
                   tbStyle: { marginTop: 32 },
-                  tbRight: PasswordMaskIcon(),
+                  tbRight: PasswordMaskIcon("password"),
                   tbHelperTextType: passwordHelperText,
                 }}
               />
@@ -147,11 +194,11 @@ const SignupScreen = ({ route, navigation, theme }: props) => {
                   tbError: confirmPasswordError,
                   tbReturnKey: "next",
                   tbStyle: { marginTop: 32 },
-                  tbRight: PasswordMaskIcon(),
+                  tbRight: PasswordMaskIcon("cpassword"),
                   tbHelperTextType: confirmPasswordHelperText,
                 }}
               />
-              <Button mode="contained" style={[Styles.marginTop32]} onPress={() => console.log("Pressed")}>
+              <Button mode="contained" style={[Styles.marginTop32]} onPress={() => OnSubmitClick}>
                 SIGN UP
               </Button>
               <View style={[Styles.flex1, Styles.padding16, Styles.width100per, Styles.flexAlignCenter, Styles.marginTop32]}>
@@ -166,7 +213,7 @@ const SignupScreen = ({ route, navigation, theme }: props) => {
                   <Text variant="bodyLarge" style={{ color: colors.textSecondary }}>
                     Instead
                   </Text>
-                  <Button mode="text" style={[Styles.marginStart4]} onPress={() => console.log("Pressed")}>
+                  <Button mode="text" style={[Styles.marginStart4]} onPress={() => {navigation.navigate("Login");}}>
                     LOG IN
                   </Button>
                 </View>
