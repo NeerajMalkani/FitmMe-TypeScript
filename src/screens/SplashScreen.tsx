@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { withTheme } from "react-native-paper";
 import { Image, StatusBar, View } from "react-native";
-import AnimatedSplash from "react-native-animated-splash-screen";
 import { useFonts, SpecialElite_400Regular } from "@expo-google-fonts/special-elite";
 import { createNavigationContainerRef } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
-import { createAnimatableComponent } from "react-native-animatable";
 import { Styles } from "../styles/styles";
 import TourScreen from "./TourScreen";
 import React from "react";
 
-const AnimatableView = createAnimatableComponent(View);
 interface props {
   route: any;
   navigation: any;
@@ -19,7 +16,7 @@ interface props {
 export const navigationRef = createNavigationContainerRef();
 const SplashScreen = ({ route, navigation, theme }: props) => {
   const { colors } = theme;
-
+  const animatableRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   let [fontsLoaded] = useFonts({
@@ -64,9 +61,9 @@ const SplashScreen = ({ route, navigation, theme }: props) => {
             {CreateAnimatedAlphabet("M", 800)}
             {CreateAnimatedAlphabet("E", 1000)}
           </View>
-          <AnimatableView animation="bounceInLeft" duration={2400} delay={500} style={[Styles.width96, Styles.height96]}>
+          <Animatable.View ref={animatableRef} animation="bounceInLeft" duration={2400} delay={500} style={[Styles.width96, Styles.height96]}>
             <Image source={require("../../assets/logo.png")} style={[Styles.width96, Styles.height96]} />
-          </AnimatableView>
+          </Animatable.View>
         </View>
       )}
     </View>

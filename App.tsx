@@ -1,5 +1,5 @@
 import { Provider as PaperProvider } from "react-native-paper";
-import { SafeAreaView, Platform, StatusBar } from "react-native";
+import { SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Styles } from "./src/styles/styles";
@@ -10,6 +10,7 @@ import { useState } from "react";
 import SignupScreen from "./src/screens/SignupScreen";
 import ForgotPasswordScreen from "./src/screens/ForgotPasswordScreen";
 import GeneralInformationScreen from "./src/screens/GeneralInformationScreen";
+import React from "react";
 
 const Stack = createStackNavigator();
 export default function App() {

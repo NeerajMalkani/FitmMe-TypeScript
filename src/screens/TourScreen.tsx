@@ -38,18 +38,11 @@ const TourScreen = ({ navigation, theme }: props) => {
     },
   ];
 
-  interface DotsProps {
-    selected:number
-  }
-  const Dots = ({ selected }: DotsProps) => {
-    return <View style={{ width: selected ? 16 : 6, height: 6, marginHorizontal: 4, backgroundColor: selected ? colors.primary : colors.secondaryContainer }} />;
-  };
-
   const Done = () => <IconButton icon="check" iconColor={colors.primary} size={28} onPress={() => navigation.navigate("Login")} />;
 
   return (
     <View style={[Styles.flex1]}>
-      <Onboarding pages={slides} DotComponent={Dots} DoneButtonComponent={Done} containerStyles={{ paddingHorizontal: 12 }} titleStyles={{ fontSize: 40 }} bottomBarHighlight={false} subTitleStyles={{ fontSize: 16, color: colors.onSurfaceDisabled }} onSkip={() => navigation.navigate("Login")} />
+      <Onboarding pages={slides} DotComponent={({ selected }) => <View style={{ width: selected ? 16 : 6, height: 6, marginHorizontal: 4, backgroundColor: selected ? colors.primary : colors.secondaryContainer }} />} DoneButtonComponent={Done} containerStyles={{ paddingHorizontal: 12 }} titleStyles={{ fontSize: 40 }} bottomBarHighlight={false} subTitleStyles={{ fontSize: 16, color: colors.onSurfaceDisabled }} onSkip={() => navigation.navigate("Login")} />
     </View>
   );
 };

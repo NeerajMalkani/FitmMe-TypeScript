@@ -6,8 +6,14 @@ import PreLoginHeader from "../components/common/PreLoginHeader";
 import { Styles } from "../styles/styles";
 import CustomTextBox from "../components/uielements/TextBox";
 import SocialIcons from "../components/uielements/SocialIcons";
+import React from "react";
 
-const LoginScreen = ({ route, navigation, theme }) => {
+interface props {
+  route: any;
+  navigation: any;
+  theme: any;
+}
+const LoginScreen = ({ route, navigation, theme }:props) => {
   const { colors } = theme;
   const [userID, setUserID] = useState("");
   const [userIDError, setUserIDError] = useState(false);
@@ -27,11 +33,11 @@ const LoginScreen = ({ route, navigation, theme }) => {
     return unsubscribe;
   }, [navigation]);
 
-  const onUserIDChanged = (text) => {
+  const onUserIDChanged = (text:string) => {
     setUserID(text);
   };
 
-  const onPasswordChanged = (text) => {
+  const onPasswordChanged = (text:string) => {
     setPassword(text);
   };
 
@@ -59,7 +65,7 @@ const LoginScreen = ({ route, navigation, theme }) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={[Styles.flex1, { backgroundColor: colors.background }]}>
         <StatusBar backgroundColor={colors.background} barStyle={route.params.themeMode ? "dark-content" : "light-content"} />
-        <PreLoginHeader theme={theme} text="Login to FitMe" />
+        <PreLoginHeader theme={theme} text="Login to FitMe" content={undefined}/>
         <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} keyboardShouldPersistTaps="handled">
           <View style={[Styles.flex1, Styles.marginTop32]}>
             <View style={[Styles.flex1, Styles.padding16, Styles.width100per]}>

@@ -2,14 +2,13 @@ import { useState } from "react";
 import { Button, Text, withTheme } from "react-native-paper";
 import { StatusBar, View, Image, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { createAnimatableComponent } from "react-native-animatable";
 import StepIndicator from "react-native-step-indicator";
+import * as Animatable from "react-native-animatable";
 import { Styles } from "../styles/styles";
 import PreLoginHeader from "../components/common/PreLoginHeader";
 import CustomCard from "../components/common/CustomCard";
 import React from "react";
 
-const AnimatableView = createAnimatableComponent(View);
 interface props {
   route: any;
   navigation: any;
@@ -34,7 +33,7 @@ const GeneralInformationScreen = ({ route, navigation, theme }: props) => {
     stepIndicatorFinishedColor: "#ffffff",
     stepIndicatorUnFinishedColor: "#ffffff",
     stepIndicatorCurrentColor: "#ffffff",
-    labelAlign: "flex-start",
+    // labelAlign: "flex-start",
   };
 
   const CardContent = (image: any, text: string, genderOption: number) => {
@@ -62,6 +61,7 @@ const GeneralInformationScreen = ({ route, navigation, theme }: props) => {
   };
 
   interface renderStepsProps {
+    position: number;
     label: string;
     stepStatus: string;
   }
@@ -95,29 +95,29 @@ const GeneralInformationScreen = ({ route, navigation, theme }: props) => {
       />
       <ScrollView style={[Styles.flex1, { marginBottom: 58 }]}>
         {currentStep === 0 ? (
-          <AnimatableView animation="bounceInUp" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
+          <Animatable.View animation="bounceInUp" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/man.png"), "Male", 1)} onPress={() => setGenderSelected(1)} />
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/woman.png"), "Female", 2)} onPress={() => setGenderSelected(2)} />
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/other.png"), "Other", 3)} onPress={() => setGenderSelected(3)} />
-          </AnimatableView>
+          </Animatable.View>
         ) : currentStep === 1 ? (
-          <AnimatableView animation="bounceInUp" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
+          <Animatable.View animation="bounceInUp" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/woman.png"), "Male", 1)} onPress={() => setGenderSelected(1)} />
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/man.png"), "Female", 2)} onPress={() => setGenderSelected(2)} />
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/other.png"), "Other", 3)} onPress={() => setGenderSelected(3)} />
-          </AnimatableView>
+          </Animatable.View>
         ) : currentStep === 2 ? (
-          <AnimatableView animation="bounceInUp" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
+          <Animatable.View animation="bounceInUp" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/man.png"), "Male", 1)} onPress={() => setGenderSelected(1)} />
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/woman.png"), "Female", 2)} onPress={() => setGenderSelected(2)} />
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/other.png"), "Other", 3)} onPress={() => setGenderSelected(3)} />
-          </AnimatableView>
+          </Animatable.View>
         ) : (
-          <AnimatableView animation="bounceInDown" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
+          <Animatable.View animation="bounceInDown" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/man.png"), "Male", 1)} onPress={() => setGenderSelected(1)} />
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/woman.png"), "Female", 2)} onPress={() => setGenderSelected(2)} />
             <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/other.png"), "Other", 3)} onPress={() => setGenderSelected(3)} />
-          </AnimatableView>
+          </Animatable.View>
         )}
       </ScrollView>
       <View style={[Styles.width100per, Styles.flexRowReverse, Styles.flexAlignCenter, Styles.paddingHorizontal16, Styles.height56, Styles.positionAbsolute, { bottom: 0, elevation: 4, justifyContent: "space-between", backgroundColor: colors.background }]}>
