@@ -8,13 +8,8 @@ import { Styles } from "../styles/styles";
 import TourScreen from "./TourScreen";
 import React from "react";
 
-interface props {
-  route: any;
-  navigation: any;
-  theme: any;
-}
 export const navigationRef = createNavigationContainerRef();
-const SplashScreen = ({ route, navigation, theme }: props) => {
+const SplashScreen = ({ route, navigation, theme }: ScreenProp) => {
   const { colors } = theme;
   const animatableRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);

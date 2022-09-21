@@ -4,12 +4,7 @@ import { Styles } from "../styles/styles";
 import PreLoginHeader from "../components/common/PreLoginHeader";
 import React from "react";
 
-interface props {
-  route:any
-  navigation:any
-  theme:any
-}
-const ForgotPasswordScreen = ({ route, navigation, theme }:props) => {
+const ForgotPasswordScreen = ({ route, navigation, theme }:ScreenProp) => {
   const { colors } = theme;
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>

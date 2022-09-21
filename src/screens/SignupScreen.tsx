@@ -8,12 +8,7 @@ import CustomTextBox from "../components/uielements/TextBox";
 import { Styles } from "../styles/styles";
 import { CommonValidator } from "../utils/commonvalidator";
 
-interface props {
-  route: any;
-  navigation: any;
-  theme: any;
-}
-const SignupScreen = ({ route, navigation, theme }: props) => {
+const SignupScreen = ({ route, navigation, theme }: ScreenProp) => {
   const { colors } = theme;
   const userFullNameRef = useRef();
   const mobileRef = useRef();

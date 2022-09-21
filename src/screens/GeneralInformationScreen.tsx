@@ -9,16 +9,15 @@ import PreLoginHeader from "../components/common/PreLoginHeader";
 import CustomCard from "../components/common/CustomCard";
 import React from "react";
 
-interface props {
-  route: any;
-  navigation: any;
-  theme: any;
-}
-const GeneralInformationScreen = ({ route, navigation, theme }: props) => {
+const GeneralInformationScreen = ({ route, navigation, theme }: ScreenProp) => {
   const { multicolors, colors } = theme;
   const [currentStep, setCurrentStep] = useState(0);
-  const [genderSelected, setGenderSelected] = useState(0);
   const labels = ["Gender", "Attributes", "Goals", "Fitness"];
+
+  const [genderSelected, setGenderSelected] = useState(0);
+  const [weightValue, setWeightValue] = useState("");
+
+  const CITIES = 'Jakarta,Bandung,Sumbawa,Taliwang,Lombok,Bima'.split(',');
 
   const customStyles = {
     stepIndicatorSize: 12,
@@ -48,6 +47,51 @@ const GeneralInformationScreen = ({ route, navigation, theme }: props) => {
     );
   };
 
+  const RenderStepsIndicator = ({ stepStatus }: StepsModel) => {
+    return <Icon name="checkbox-blank-circle" size={10} color={stepStatus === "current" ? multicolors.golden : colors.onPrimary} />;
+  };
+
+  const RenderStepsLabel = ({ label, stepStatus }: StepsModel) => {
+    return (
+      <Text variant="bodyMedium" style={{ color: stepStatus === "current" ? multicolors.golden : colors.inverseTextSecondary, marginLeft: 4 }}>
+        {label}
+      </Text>
+    );
+  };
+
+  const StepIndicatorView = () => {
+    return (
+      <View style={[Styles.flexAlignSelfEnd, Styles.flexJustifyCenter, Styles.positionAbsolute, { zIndex: 2, height: 100, right: 24, marginTop: 28 }]}>
+        <StepIndicator direction="vertical" customStyles={customStyles} currentPosition={currentStep} stepCount={4} labels={labels} renderStepIndicator={RenderStepsIndicator} renderLabel={RenderStepsLabel} />
+      </View>
+    );
+  };
+
+  const CreateSteps = () => {
+    switch (currentStep) {
+      case 0:
+        return (
+          <Animatable.View animation="bounceInUp" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
+            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/man.png"), "Male", 1)} onPress={() => setGenderSelected(1)} />
+            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/woman.png"), "Female", 2)} onPress={() => setGenderSelected(2)} />
+            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/other.png"), "Other", 3)} onPress={() => setGenderSelected(3)} />
+          </Animatable.View>
+        );
+      case 1:
+        return (
+          <Animatable.View animation="bounceInUp" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
+            <View style={[Styles.width100per, Styles.height40, Styles.paddingHorizontal16]}>
+            </View>
+            <Text>{weightValue}</Text>
+          </Animatable.View>
+        );
+      case 2:
+        return null;
+      case 3:
+        return null;
+    }
+  };
+
   const NextClick = () => {
     if (currentStep <= 2) {
       setCurrentStep(currentStep + 1);
@@ -60,71 +104,18 @@ const GeneralInformationScreen = ({ route, navigation, theme }: props) => {
     }
   };
 
-  interface renderStepsProps {
-    position: number;
-    label: string;
-    stepStatus: string;
-  }
   return (
     <View style={[Styles.flex1, { backgroundColor: colors.background }]}>
       <StatusBar backgroundColor={colors.background} barStyle={route.params.themeMode ? "dark-content" : "light-content"} />
-      <PreLoginHeader
-        theme={theme}
-        text="What is your Gender?"
-        content={
-          <View style={[Styles.flexAlignSelfEnd, Styles.flexJustifyCenter, Styles.positionAbsolute, { zIndex: 2, height: 100, right: 24, marginTop: 28 }]}>
-            <StepIndicator
-              direction="vertical"
-              customStyles={customStyles}
-              currentPosition={currentStep}
-              stepCount={4}
-              labels={labels}
-              renderStepIndicator={({ stepStatus }: renderStepsProps) => {
-                return <Icon name="checkbox-blank-circle" size={10} color={stepStatus === "current" ? multicolors.golden : colors.onPrimary} />;
-              }}
-              renderLabel={({ label, stepStatus }: renderStepsProps) => {
-                return (
-                  <Text variant="bodyMedium" style={{ color: stepStatus === "current" ? multicolors.golden : colors.inverseTextSecondary, marginLeft: 4 }}>
-                    {label}
-                  </Text>
-                );
-              }}
-            />
-          </View>
-        }
-      />
-      <ScrollView style={[Styles.flex1, { marginBottom: 58 }]}>
-        {currentStep === 0 ? (
-          <Animatable.View animation="bounceInUp" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/man.png"), "Male", 1)} onPress={() => setGenderSelected(1)} />
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/woman.png"), "Female", 2)} onPress={() => setGenderSelected(2)} />
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/other.png"), "Other", 3)} onPress={() => setGenderSelected(3)} />
-          </Animatable.View>
-        ) : currentStep === 1 ? (
-          <Animatable.View animation="bounceInUp" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/woman.png"), "Male", 1)} onPress={() => setGenderSelected(1)} />
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/man.png"), "Female", 2)} onPress={() => setGenderSelected(2)} />
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/other.png"), "Other", 3)} onPress={() => setGenderSelected(3)} />
-          </Animatable.View>
-        ) : currentStep === 2 ? (
-          <Animatable.View animation="bounceInUp" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/man.png"), "Male", 1)} onPress={() => setGenderSelected(1)} />
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/woman.png"), "Female", 2)} onPress={() => setGenderSelected(2)} />
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/other.png"), "Other", 3)} onPress={() => setGenderSelected(3)} />
-          </Animatable.View>
-        ) : (
-          <Animatable.View animation="bounceInDown" easing="ease-in-back" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/man.png"), "Male", 1)} onPress={() => setGenderSelected(1)} />
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/woman.png"), "Female", 2)} onPress={() => setGenderSelected(2)} />
-            <CustomCard containerStyle={{ marginVertical: 8 }} content={CardContent(require("../../assets/images/other.png"), "Other", 3)} onPress={() => setGenderSelected(3)} />
-          </Animatable.View>
-        )}
-      </ScrollView>
+      <PreLoginHeader theme={theme} text="What is your Gender?" content={StepIndicatorView()} />
+      <ScrollView style={[Styles.flex1, { marginBottom: 58 }]}>{CreateSteps()}</ScrollView>
       <View style={[Styles.width100per, Styles.flexRowReverse, Styles.flexAlignCenter, Styles.paddingHorizontal16, Styles.height56, Styles.positionAbsolute, { bottom: 0, elevation: 4, justifyContent: "space-between", backgroundColor: colors.background }]}>
         <Button mode="text" onPress={NextClick}>
           Next
         </Button>
-        <Button mode="text" onPress={PreviousClick}>Previous</Button>
+        <Button mode="text" onPress={PreviousClick}>
+          Previous
+        </Button>
       </View>
     </View>
   );

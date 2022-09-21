@@ -8,12 +8,7 @@ import CustomTextBox from "../components/uielements/TextBox";
 import SocialIcons from "../components/uielements/SocialIcons";
 import React from "react";
 
-interface props {
-  route: any;
-  navigation: any;
-  theme: any;
-}
-const LoginScreen = ({ route, navigation, theme }:props) => {
+const LoginScreen = ({ route, navigation, theme }: ScreenProp) => {
   const { colors } = theme;
   const [userID, setUserID] = useState("");
   const [userIDError, setUserIDError] = useState(false);
