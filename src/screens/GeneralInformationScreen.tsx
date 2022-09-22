@@ -3,6 +3,7 @@ import { Button, Text, withTheme } from "react-native-paper";
 import { StatusBar, View, Image, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import StepIndicator from "react-native-step-indicator";
+import ScrollPicker from "react-native-wheel-scrollview-picker";
 import * as Animatable from "react-native-animatable";
 import { Styles } from "../styles/styles";
 import PreLoginHeader from "../components/common/PreLoginHeader";
@@ -13,11 +14,9 @@ const GeneralInformationScreen = ({ route, navigation, theme }: ScreenProp) => {
   const { multicolors, colors } = theme;
   const [currentStep, setCurrentStep] = useState(0);
   const labels = ["Gender", "Attributes", "Goals", "Fitness"];
-
+  
   const [genderSelected, setGenderSelected] = useState(0);
   const [weightValue, setWeightValue] = useState("");
-
-  const CITIES = 'Jakarta,Bandung,Sumbawa,Taliwang,Lombok,Bima'.split(',');
 
   const customStyles = {
     stepIndicatorSize: 12,
@@ -45,6 +44,10 @@ const GeneralInformationScreen = ({ route, navigation, theme }: ScreenProp) => {
         </Text>
       </View>
     );
+  };
+
+  const NumberPicker = (data: number | string) => {
+    return <Text variant="bodyLarge">{data.toString()}</Text>;
   };
 
   const RenderStepsIndicator = ({ stepStatus }: StepsModel) => {
@@ -80,7 +83,19 @@ const GeneralInformationScreen = ({ route, navigation, theme }: ScreenProp) => {
       case 1:
         return (
           <Animatable.View animation="bounceInUp" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
-            <View style={[Styles.width100per, Styles.height40, Styles.paddingHorizontal16]}>
+            <View style={[Styles.width100per, Styles.paddingHorizontal16, { marginTop: 180 }]}>
+              <ScrollPicker
+                dataSource={["1", "2", "3", "4", "5", "6"]}
+                selectedIndex={5}
+                renderItem={(data) => NumberPicker(data)}
+                onValueChange={(value) => {}}
+                wrapperHeight={60}
+                // wrapperWidth={150}
+                wrapperColor={colors.background}
+                itemHeight={60}
+                highlightColor={colors.primary}
+                highlightBorderWidth={2}
+              />
             </View>
             <Text>{weightValue}</Text>
           </Animatable.View>
