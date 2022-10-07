@@ -4,6 +4,7 @@ import { StatusBar, View, Image, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import StepIndicator from "react-native-step-indicator";
 import ScrollPicker from "react-native-wheel-scrollview-picker";
+import RNSpeedometer from "react-native-speedometer";
 import * as Animatable from "react-native-animatable";
 import { Styles } from "../styles/styles";
 import PreLoginHeader from "../components/common/PreLoginHeader";
@@ -13,10 +14,19 @@ import React from "react";
 const GeneralInformationScreen = ({ route, navigation, theme }: ScreenProp) => {
   const { multicolors, colors } = theme;
   const [currentStep, setCurrentStep] = useState(0);
+
   const labels = ["Gender", "Attributes", "Goals", "Fitness"];
-  
+
   const [genderSelected, setGenderSelected] = useState(0);
-  const [weightValue, setWeightValue] = useState("");
+  const [weightValue, setWeightValue] = useState(71.0);
+
+  const CreateNumberArray = (from: number, to: number) => {
+    let arr = [];
+    for (var i = from; i <= to; i++) {
+      arr.push(i.toString());
+    }
+    return arr;
+  };
 
   const customStyles = {
     stepIndicatorSize: 12,
@@ -82,22 +92,60 @@ const GeneralInformationScreen = ({ route, navigation, theme }: ScreenProp) => {
         );
       case 1:
         return (
-          <Animatable.View animation="bounceInUp" duration={1000} delay={10} style={[Styles.flexColumn, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
-            <View style={[Styles.width100per, Styles.paddingHorizontal16, { marginTop: 180 }]}>
-              <ScrollPicker
-                dataSource={["1", "2", "3", "4", "5", "6"]}
-                selectedIndex={5}
-                renderItem={(data) => NumberPicker(data)}
-                onValueChange={(value) => {}}
-                wrapperHeight={60}
-                // wrapperWidth={150}
-                wrapperColor={colors.background}
-                itemHeight={60}
-                highlightColor={colors.primary}
-                highlightBorderWidth={2}
+          <Animatable.View animation="bounceInDown" duration={1000} delay={10} style={[Styles.flexColumn, Styles.flex6, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
+            <View style={[Styles.flex1, Styles.marginStart16, Styles.flexJustifyCenter]}>
+              <RNSpeedometer
+                value={weightValue}
+                size={240}
+                minValue={30}
+                maxValue={240}
+                labels={[
+                  {
+                    name: "Under Weight",
+                    activeBarColor: colors.primary,
+                  },
+                ]}
+                labelStyle={{ opacity: 0 }}
+                labelNoteStyle={{ opacity: 0 }}
               />
             </View>
-            <Text>{weightValue}</Text>
+            <View style={[Styles.flexRow, Styles.flexAlignCenter, Styles.width100per, Styles.paddingHorizontal16, { height: 96 }]}>
+              <Text variant="bodyMedium">Weight: </Text>
+              <View style={[Styles.flex1, Styles.marginStart16]}>
+                <ScrollPicker
+                  dataSource={CreateNumberArray(30, 240)}
+                  selectedIndex={41}
+                  renderItem={(data) => NumberPicker(data)}
+                  onValueChange={(value) => {
+                    let newWeight = 0;
+                    newWeight = parseFloat(value + "." + weightValue.toString().split(".")[1]);
+                    setWeightValue(newWeight);
+                  }}
+                  wrapperHeight={64}
+                  wrapperColor={colors.background}
+                  itemHeight={64}
+                  highlightColor={colors.primary}
+                  highlightBorderWidth={2}
+                />
+              </View>
+              <View style={[Styles.flex1, Styles.marginStart16]}>
+                <ScrollPicker
+                  dataSource={CreateNumberArray(0, 9)}
+                  selectedIndex={0}
+                  renderItem={(data) => NumberPicker(data)}
+                  onValueChange={(value) => {
+                    let newWeight = 0;
+                    newWeight = parseFloat(weightValue.toString().split(".")[0] + "." + value);
+                    setWeightValue(newWeight);
+                  }}
+                  wrapperHeight={64}
+                  wrapperColor={colors.background}
+                  itemHeight={64}
+                  highlightColor={colors.primary}
+                  highlightBorderWidth={2}
+                />
+              </View>
+            </View>
           </Animatable.View>
         );
       case 2:
@@ -123,7 +171,9 @@ const GeneralInformationScreen = ({ route, navigation, theme }: ScreenProp) => {
     <View style={[Styles.flex1, { backgroundColor: colors.background }]}>
       <StatusBar backgroundColor={colors.background} barStyle={route.params.themeMode ? "dark-content" : "light-content"} />
       <PreLoginHeader theme={theme} text="What is your Gender?" content={StepIndicatorView()} />
-      <ScrollView style={[Styles.flex1, { marginBottom: 58 }]}>{CreateSteps()}</ScrollView>
+      <ScrollView style={[Styles.flex1, { marginBottom: 58 }]} contentContainerStyle={[Styles.flex1]}>
+        {CreateSteps()}
+      </ScrollView>
       <View style={[Styles.width100per, Styles.flexRowReverse, Styles.flexAlignCenter, Styles.paddingHorizontal16, Styles.height56, Styles.positionAbsolute, { bottom: 0, elevation: 4, justifyContent: "space-between", backgroundColor: colors.background }]}>
         <Button mode="text" onPress={NextClick}>
           Next
