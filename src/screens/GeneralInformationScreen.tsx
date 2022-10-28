@@ -93,57 +93,49 @@ const GeneralInformationScreen = ({ route, navigation, theme }: ScreenProp) => {
       case 1:
         return (
           <Animatable.View animation="bounceInDown" duration={1000} delay={10} style={[Styles.flexColumn, Styles.flex6, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
-            <View style={[Styles.flex1, Styles.marginStart16, Styles.flexJustifyCenter]}>
-              <RNSpeedometer
-                value={weightValue}
-                size={240}
-                minValue={30}
-                maxValue={240}
-                labels={[
-                  {
-                    name: "Under Weight",
-                    activeBarColor: colors.primary,
-                  },
-                ]}
-                labelStyle={{ opacity: 0 }}
-                labelNoteStyle={{ opacity: 0 }}
-              />
-            </View>
-            <View style={[Styles.flexRow, Styles.flexAlignCenter, Styles.width100per, Styles.paddingHorizontal16, { height: 96 }]}>
-              <Text variant="bodyMedium">Weight: </Text>
-              <View style={[Styles.flex1, Styles.marginStart16]}>
-                <ScrollPicker
-                  dataSource={CreateNumberArray(30, 240)}
-                  selectedIndex={41}
-                  renderItem={(data) => NumberPicker(data)}
-                  onValueChange={(value) => {
-                    let newWeight = 0;
-                    newWeight = parseFloat(value + "." + weightValue.toString().split(".")[1]);
-                    setWeightValue(newWeight);
-                  }}
-                  wrapperHeight={64}
-                  wrapperColor={colors.background}
-                  itemHeight={64}
-                  highlightColor={colors.primary}
-                  highlightBorderWidth={2}
-                />
-              </View>
-              <View style={[Styles.flex1, Styles.marginStart16]}>
-                <ScrollPicker
-                  dataSource={CreateNumberArray(0, 9)}
-                  selectedIndex={0}
-                  renderItem={(data) => NumberPicker(data)}
-                  onValueChange={(value) => {
-                    let newWeight = 0;
-                    newWeight = parseFloat(weightValue.toString().split(".")[0] + "." + value);
-                    setWeightValue(newWeight);
-                  }}
-                  wrapperHeight={64}
-                  wrapperColor={colors.background}
-                  itemHeight={64}
-                  highlightColor={colors.primary}
-                  highlightBorderWidth={2}
-                />
+            <View style={[Styles.flex1]}>
+              <View style={[Styles.flexRow, Styles.flexAlignCenter, Styles.marginTop16]}>
+                <View style={[Styles.flex1, Styles.flexRow, Styles.flexAlignCenter, Styles.paddingEnd16, { height: 64 }]}>
+                  <View style={[Styles.flex1]}>
+                    <ScrollPicker
+                      dataSource={CreateNumberArray(30, 240)}
+                      selectedIndex={41}
+                      renderItem={(data) => NumberPicker(data)}
+                      onValueChange={(value) => {
+                        let newWeight = 0;
+                        newWeight = parseFloat(value + "." + weightValue.toString().split(".")[1]);
+                        setWeightValue(newWeight);
+                      }}
+                      wrapperHeight={64}
+                      wrapperColor={colors.background}
+                      itemHeight={64}
+                      highlightColor={colors.primary}
+                      highlightBorderWidth={2}
+                    />
+                  </View>
+                  <View style={[Styles.flex1, Styles.marginStart16]}>
+                    <ScrollPicker
+                      dataSource={CreateNumberArray(0, 9)}
+                      selectedIndex={0}
+                      renderItem={(data) => NumberPicker(data)}
+                      onValueChange={(value) => {
+                        let newWeight = 0;
+                        newWeight = parseFloat(weightValue.toString().split(".")[0] + "." + value);
+                        setWeightValue(newWeight);
+                      }}
+                      wrapperHeight={64}
+                      wrapperColor={colors.background}
+                      itemHeight={64}
+                      highlightColor={colors.primary}
+                      highlightBorderWidth={2}
+                    />
+                  </View>
+                </View>
+                <View style={[Styles.width104, Styles.height104, Styles.flexAlignCenter, Styles.borderRadius16, { backgroundColor: colors.primary, elevation: 8 }]}>
+                  <View style={[Styles.width48, Styles.height32, Styles.marginTop4, Styles.borderRadius8, { backgroundColor: multicolors.white }]}>
+                    <RNSpeedometer value={weightValue} size={48} minValue={30} maxValue={240} labels={[{ name: "", activeBarColor: colors.primary }]} labelStyle={{ opacity: 0 }} labelNoteStyle={{ opacity: 0 }} />
+                  </View>
+                </View>
               </View>
             </View>
           </Animatable.View>
