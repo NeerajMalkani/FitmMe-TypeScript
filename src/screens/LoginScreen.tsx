@@ -42,7 +42,7 @@ const LoginScreen = ({ route, navigation, theme }: ScreenProp) => {
 
   const ValidateLogin = () => {
     isBack = false;
-    navigation.navigate("GeneralInformation");
+    navigation.navigate("BasicInfo");
   };
 
   const ForgotPassword = () => {};

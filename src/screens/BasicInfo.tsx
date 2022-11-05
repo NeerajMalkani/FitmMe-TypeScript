@@ -9,7 +9,7 @@ import React from "react";
 import GenderScreen from "./basicinfo/GenderScreen";
 import AttributesScreen from "./basicinfo/AttributesScreen";
 
-const GeneralInformationScreen = ({ route, navigation, theme }: ScreenProp) => {
+const BasicInfoScreen = ({ route, navigation, theme }: ScreenProp) => {
   const { multicolors, colors } = theme;
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -99,4 +99,4 @@ const GeneralInformationScreen = ({ route, navigation, theme }: ScreenProp) => {
   );
 };
 
-export default withTheme(GeneralInformationScreen);
+export default withTheme(BasicInfoScreen);

@@ -9,7 +9,7 @@ import LoginScreen from "./src/screens/LoginScreen";
 import { useState } from "react";
 import SignupScreen from "./src/screens/SignupScreen";
 import ForgotPasswordScreen from "./src/screens/ForgotPasswordScreen";
-import GeneralInformationScreen from "./src/screens/GeneralInformationScreen";
+import BasicInfoScreen from "./src/screens/BasicInfo";
 import React from "react";
 
 const Stack = createStackNavigator();
@@ -24,7 +24,7 @@ export default function App() {
             <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} initialParams={{ themeMode: themeMode }}/>
             <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }} initialParams={{ themeMode: themeMode }}/>
             <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} initialParams={{ themeMode: themeMode }}/>
-            <Stack.Screen name="GeneralInformation" component={GeneralInformationScreen} options={{ headerShown: false }} initialParams={{ themeMode: themeMode }}/>
+            <Stack.Screen name="BasicInfo" component={BasicInfoScreen} options={{ headerShown: false }} initialParams={{ themeMode: themeMode }}/>
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
