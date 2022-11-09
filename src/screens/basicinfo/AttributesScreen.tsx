@@ -1,7 +1,8 @@
 import React from "react";
 import { View } from "react-native";
 import * as Animatable from "react-native-animatable";
-import ScrollPicker from "react-native-wheel-scrollview-picker";
+//import ScrollPicker from "react-native-wheel-scrollview-picker"
+import Slider from "@react-native-community/slider";
 import RNSpeedometer from "react-native-speedometer";
 import { Text } from "react-native-paper";
 import { Styles } from "../../styles/styles";
@@ -9,63 +10,39 @@ import { Styles } from "../../styles/styles";
 const AttributesScreen = ({ theme, selectedWeight, selectedHeight }: AttributesProp) => {
   const { multicolors, colors } = theme;
 
-  const CreateNumberArray = (from: number, to: number) => {
-    let arr = [];
-    for (var i = from; i <= to; i++) {
-      arr.push(i.toString());
-    }
-    return arr;
+  const SetWeightValue = (value: number) => {
+    selectedWeight[1](parseFloat(value.toFixed(2)));
   };
 
-  const NumberPicker = (data: number | string) => {
-    return <Text variant="bodyLarge">{data.toString()}</Text>;
+  const CreateMeasrementScale = ({start, end, divisions}: MesurementScaleProp) => {
+    const arrScale = Array.from({length:(end - start)},(v,k)=>start+k);
+    return (
+      <View style={[Styles.flexRow, Styles.flex1, Styles.paddingHorizontal32, Styles.flexAlignEnd]}>
+        {arrScale.map((i, k) => {
+            return(
+              <View key={i} style={[Styles.width1, Styles.marginStart4, { backgroundColor: colors.text, height: i % 5 === 0 ? 24 : 16 }]}></View>
+            )
+        })}
+      </View>
+    )
   };
 
   return (
     <Animatable.View animation="bounceInDown" duration={1000} delay={10} style={[Styles.flexColumn, Styles.flex6, Styles.paddingVertical8, Styles.paddingHorizontal16]}>
       <View style={[Styles.flex1]}>
-        <View style={[Styles.flexRow, Styles.flexAlignCenter, Styles.marginTop16]}>
-          <View style={[Styles.flex1, Styles.flexRow, Styles.flexAlignCenter, Styles.paddingEnd16, { height: 64 }]}>
-            <View style={[Styles.flex1]}>
-              <ScrollPicker
-                dataSource={CreateNumberArray(30, 240)}
-                selectedIndex={41}
-                renderItem={(data) => NumberPicker(data)}
-                onValueChange={(value) => {
-                  let newWeight = 0;
-                  newWeight = parseFloat(value + "." + selectedWeight[0].toString().split(".")[1]);
-                  selectedWeight[1](newWeight);
-                }}
-                wrapperHeight={64}
-                wrapperColor={colors.background}
-                itemHeight={64}
-                highlightColor={colors.primary}
-                highlightBorderWidth={2}
-              />
+        <View style={[Styles.flexColumn, Styles.flexAlignCenter, Styles.marginTop16]}>
+          <View style={[Styles.flexAlignCenter, Styles.borderRadius16, { backgroundColor: colors.primary, elevation: 8, width: 156, height: 156 }]}>
+            <View style={[Styles.width96, Styles.height64, Styles.marginTop4, Styles.borderRadius8]}>
+              <RNSpeedometer value={selectedWeight[0]} size={96} minValue={50} maxValue={160} needleImage={require("../../../assets/images/speedometer-needle.png")} labels={[{ name: "", activeBarColor: multicolors.white }]} labelStyle={{ opacity: 0 }} labelNoteStyle={{ opacity: 0 }} />
             </View>
-            <View style={[Styles.flex1, Styles.marginStart16]}>
-              <ScrollPicker
-                dataSource={CreateNumberArray(0, 9)}
-                selectedIndex={0}
-                renderItem={(data) => NumberPicker(data)}
-                onValueChange={(value) => {
-                  let newWeight = 0;
-                  newWeight = parseFloat(selectedWeight[0].toString().split(".")[0] + "." + value);
-                  selectedWeight[1](newWeight);
-                }}
-                wrapperHeight={64}
-                wrapperColor={colors.background}
-                itemHeight={64}
-                highlightColor={colors.primary}
-                highlightBorderWidth={2}
-              />
-            </View>
+            <Text style={[Styles.flex1, Styles.flexGrow, { textAlignVertical: "center", color: multicolors.white}]} variant="headlineLarge">{selectedWeight[0]}</Text>
           </View>
-          <View style={[Styles.width104, Styles.height104, Styles.flexAlignCenter, Styles.borderRadius16, { backgroundColor: colors.primary, elevation: 8 }]}>
-            <View style={[Styles.width48, Styles.height32, Styles.marginTop4, Styles.borderRadius8, { backgroundColor: multicolors.white }]}>
-              <RNSpeedometer value={selectedWeight[0]} size={48} minValue={30} maxValue={240} labels={[{ name: "", activeBarColor: colors.primary }]} labelStyle={{ opacity: 0 }} labelNoteStyle={{ opacity: 0 }} />
-            </View>
+          <View style={[Styles.flex1, Styles.flexRow, Styles.flexAlignCenter, Styles.height64, Styles.marginTop32]}>
+            <Slider style={[Styles.width100per, Styles.height40]} minimumValue={50} maximumValue={160} step={0.1} minimumTrackTintColor={colors.primary} thumbTintColor={colors.primary} onSlidingComplete={SetWeightValue} value={72} />
           </View>
+          <View style={[Styles.height24, Styles.marginTop16, Styles.marginStart16, Styles.flexAlignSelfStart, { backgroundColor: "red"}]}>
+              <CreateMeasrementScale start={30} end={50} divisions={15}/>
+            </View>
         </View>
       </View>
     </Animatable.View>

@@ -14,3 +14,9 @@ interface AttributesProp {
   selectedWeight: any;
   selectedHeight: any;
 }
+
+interface MesurementScaleProp {
+  start: any;
+  end: any;
+  divisions: any;
+}
