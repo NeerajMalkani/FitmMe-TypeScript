@@ -18,5 +18,4 @@ interface AttributesProp {
 interface MesurementScaleProp {
   start: any;
   end: any;
-  divisions: any;
 }

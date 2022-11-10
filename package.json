@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/special-elite": "^0.2.2",
+    "@expo/ngrok": "^4.1.0",
     "@react-native-community/slider": "4.2.3",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/stack": "^6.3.0",
@@ -35,7 +36,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@types/react": "^18.0.24",
+    "@types/react": "~18.0.0",
     "@types/react-native": "~0.69.1",
     "@types/react-native-vector-icons": "^6.4.12",
     "react-native-speedometer": "^1.0.5",
