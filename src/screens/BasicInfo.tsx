@@ -9,6 +9,7 @@ import React from "react";
 import GenderScreen from "./basicinfo/GenderScreen";
 import HeightScreen from "./basicinfo/HeightScreen";
 import WeightScreen from "./basicinfo/WeightScreen";
+import FitnessScreen from "./basicinfo/FitnessScreen";
 
 const BasicInfoScreen = ({ route, navigation, theme }: ScreenProp) => {
   const { multicolors, colors } = theme;
@@ -21,6 +22,7 @@ const BasicInfoScreen = ({ route, navigation, theme }: ScreenProp) => {
   const selectedGender = useState(0);
   const selectedWeight = useState(71.0);
   const selectedHeight = useState(6.7);
+  const selectedFitness = useState(2);
 
   const customStyles = {
     stepIndicatorSize: 12,
@@ -80,8 +82,11 @@ const BasicInfoScreen = ({ route, navigation, theme }: ScreenProp) => {
       case 1:
         setPageTitle("What is your Height?");
         break;
-      case 1:
+      case 2:
         setPageTitle("What is your Weight?");
+        break;
+      case 3:
+        setPageTitle("What is your Fitness Level?");
         break;
     }
   };
@@ -91,11 +96,11 @@ const BasicInfoScreen = ({ route, navigation, theme }: ScreenProp) => {
       case 0:
         return <GenderScreen theme={theme} selectedGender={selectedGender} />;
       case 1:
-        return <HeightScreen theme={theme} selectedWeight={selectedWeight} selectedHeight={selectedHeight} />;
+        return <HeightScreen theme={theme} selectedHeight={selectedHeight} />;
       case 2:
-        return <WeightScreen theme={theme} selectedWeight={selectedWeight} selectedHeight={selectedHeight} />;
+        return <WeightScreen theme={theme} selectedWeight={selectedWeight} />;
       case 3:
-        return null;
+        return <FitnessScreen theme={theme} selectedFitness={selectedFitness} />;
     }
   };
 

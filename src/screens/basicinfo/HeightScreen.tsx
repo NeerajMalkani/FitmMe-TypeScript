@@ -8,7 +8,7 @@ import HumanBodySvg from "../../svg/humanbody";
 
 const deviceHeight = Dimensions.get("window").height;
 
-const HeightScreen = ({ theme, selectedHeight }: AttributesProp) => {
+const HeightScreen = ({ theme, selectedHeight }: HeightProp) => {
   const { multicolors, colors } = theme;
 
   const CreateMeasrementScale = ({ start, end }: MesurementScaleProp) => {
@@ -39,29 +39,20 @@ const HeightScreen = ({ theme, selectedHeight }: AttributesProp) => {
   };
 
   return (
-    <Animatable.View animation="bounceInDown" duration={1000} delay={10} style={[Styles.flexColumn, Styles.flex6, Styles.paddingVertical8]}>
+    <Animatable.View animation="bounceInUp" duration={1000} delay={10} style={[Styles.flexColumn, Styles.flex6, Styles.paddingVertical8]}>
       <View style={[Styles.flex1]}>
         <View style={{ transform: [{ rotate: "-90deg" }], position: "absolute", top: deviceHeight - 560, right: -260, zIndex: 2, opacity: 0 }}>
-          <Slider
-            style={{ width: deviceHeight - 280, height: 40 }}
-            value={selectedHeight[0]}
-            minimumValue={1}
-            maximumValue={9}
-            minimumTrackTintColor="#FFFFFF"
-            maximumTrackTintColor="#000000"
-            onValueChange={(value: number) => {
-              selectedHeight[1](parseFloat(value.toFixed(1)));
-            }}
-          />
+          <Slider style={{ width: deviceHeight - 280, height: 40 }} value={selectedHeight[0]} minimumValue={1} maximumValue={9} minimumTrackTintColor="#FFFFFF" maximumTrackTintColor="#000000" onValueChange={(value: number) => selectedHeight[1](parseFloat(value.toFixed(1)))} />
         </View>
         <View style={[Styles.flexColumn, Styles.flexAlignCenter, Styles.marginTop16]}>
           <HumanBodySvg />
           <CreateMeasrementScale start={1} end={9} />
         </View>
-        <View style={[Styles.width80, Styles.height80, Styles.flexAlignCenter, Styles.flexJustifyCenter, { position: "absolute", bottom: 24, left: 24, backgroundColor: colors.primary, elevation: 4, borderRadius: 40 }]}>
-          <Text variant="titleLarge" style={{ color: multicolors.white }}>
+        <View style={[Styles.width80, Styles.height80, Styles.flexAlignCenter, Styles.flexJustifyCenter, { position: "absolute", bottom: 24, left: 24, backgroundColor: multicolors.white, elevation: 4, borderRadius: 40 }]}>
+          <Text variant="titleLarge" style={[Styles.fontBold, { color: colors.primary }]}>
             {selectedHeight[0]}
           </Text>
+          <Text variant="bodySmall">fts</Text>
         </View>
       </View>
     </Animatable.View>

@@ -9,10 +9,19 @@ interface GenderProp {
   selectedGender: any;
 }
 
-interface AttributesProp {
+interface HeightProp {
+  theme: any;
+  selectedHeight: any;
+}
+
+interface WeightProp {
   theme: any;
   selectedWeight: any;
-  selectedHeight: any;
+}
+
+interface FitnessProp {
+  theme: any;
+  selectedFitness: any;
 }
 
 interface MesurementScaleProp {
