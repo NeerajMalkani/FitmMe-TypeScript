@@ -7,17 +7,20 @@ import { Styles } from "../styles/styles";
 import PreLoginHeader from "../components/common/PreLoginHeader";
 import React from "react";
 import GenderScreen from "./basicinfo/GenderScreen";
-import AttributesScreen from "./basicinfo/AttributesScreen";
+import HeightScreen from "./basicinfo/HeightScreen";
+import WeightScreen from "./basicinfo/WeightScreen";
 
 const BasicInfoScreen = ({ route, navigation, theme }: ScreenProp) => {
   const { multicolors, colors } = theme;
   const [currentStep, setCurrentStep] = useState(0);
 
-  const labels = ["Gender", "Attributes", "Goals", "Fitness"];
+  const [pageTitle, setPageTitle] = useState("What is your Gender?");
+
+  const labels = ["Gender", "Height", "Weight", "Fitness"];
 
   const selectedGender = useState(0);
   const selectedWeight = useState(71.0);
-  const selectedHeight = useState(5.0);
+  const selectedHeight = useState(6.7);
 
   const customStyles = {
     stepIndicatorSize: 12,
@@ -58,12 +61,28 @@ const BasicInfoScreen = ({ route, navigation, theme }: ScreenProp) => {
   const NextClick = () => {
     if (currentStep <= 2) {
       setCurrentStep(currentStep + 1);
+      PageTitle(currentStep + 1);
     }
   };
 
   const PreviousClick = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
+      PageTitle(currentStep - 1);
+    }
+  };
+
+  const PageTitle = (step: number) => {
+    switch (step) {
+      case 0:
+        setPageTitle("What is your Gender?");
+        break;
+      case 1:
+        setPageTitle("What is your Height?");
+        break;
+      case 1:
+        setPageTitle("What is your Weight?");
+        break;
     }
   };
 
@@ -72,18 +91,18 @@ const BasicInfoScreen = ({ route, navigation, theme }: ScreenProp) => {
       case 0:
         return <GenderScreen theme={theme} selectedGender={selectedGender} />;
       case 1:
-        return <AttributesScreen theme={theme} selectedWeight={selectedWeight} selectedHeight={selectedHeight} />;
+        return <HeightScreen theme={theme} selectedWeight={selectedWeight} selectedHeight={selectedHeight} />;
       case 2:
-        return null;
+        return <WeightScreen theme={theme} selectedWeight={selectedWeight} selectedHeight={selectedHeight} />;
       case 3:
         return null;
     }
   };
-  
+
   return (
     <View style={[Styles.flex1, { backgroundColor: colors.background }]}>
       <StatusBar backgroundColor={colors.background} barStyle={route.params.themeMode ? "dark-content" : "light-content"} />
-      <PreLoginHeader theme={theme} text="What is your Gender?" content={StepIndicatorView()} />
+      <PreLoginHeader theme={theme} text={pageTitle} content={StepIndicatorView()} />
       <ScrollView style={[Styles.flex1, { marginBottom: 58 }]} contentContainerStyle={[Styles.flex1]}>
         {CreateSteps()}
       </ScrollView>
