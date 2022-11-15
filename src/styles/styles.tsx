@@ -4,10 +4,10 @@ export const Styles = StyleSheet.create({
   /* #region Templates */
   container: {
     flex: 1,
-    padding: 16
+    padding: 16,
   },
   /* #endregion */
-  
+
   /* #region Borders */
   border0: {
     borderWidth: 0,
@@ -88,6 +88,9 @@ export const Styles = StyleSheet.create({
   },
   borderRadius8: {
     borderRadius: 8,
+  },
+  borderRadius12: {
+    borderRadius: 12,
   },
   borderRadius16: {
     borderRadius: 16,
@@ -779,7 +782,7 @@ export const Styles = StyleSheet.create({
   },
   /* #endregion */
 
-  /*#region position */
+  /*#region Position */
   positionRelative: {
     position: "relative",
   },
@@ -787,4 +790,76 @@ export const Styles = StyleSheet.create({
     position: "absolute",
   },
   /*#endregion*/
+
+  /*#region Transform */
+  transform45: {
+    transform: [{ rotate: "45deg" }],
+  },
+  transform90: {
+    transform: [{ rotate: "90deg" }],
+  },
+  transform180: {
+    transform: [{ rotate: "180deg" }],
+  },
+  transform270: {
+    transform: [{ rotate: "270deg" }],
+  },
+  transform360: {
+    transform: [{ rotate: "360deg" }],
+  },
+  transform45M: {
+    transform: [{ rotate: "-45deg" }],
+  },
+  transform90M: {
+    transform: [{ rotate: "-90deg" }],
+  },
+  transform180M: {
+    transform: [{ rotate: "-180deg" }],
+  },
+  transform270M: {
+    transform: [{ rotate: "-270deg" }],
+  },
+  transform360M: {
+    transform: [{ rotate: "-360deg" }],
+  },
+  /*#endregion*/
+
+  /*#region zIndex */
+  zIndex1: {
+    zIndex: 1,
+  },
+  zIndex2: {
+    zIndex: 2,
+  },
+  zIndex3: {
+    zIndex: 3,
+  },
+  zIndex4: {
+    zIndex: 4,
+  },
+  zIndex5: {
+    zIndex: 5,
+  },
+  zIndex6: {
+    zIndex: 6,
+  },
+  zIndex7: {
+    zIndex: 7,
+  },
+  zIndex8: {
+    zIndex: 8,
+  },
+  zIndex9: {
+    zIndex: 9,
+  },
+  /*#endregion */
+
+  /*#region Opacity */
+  opacity0: {
+    opacity: 0,
+  },
+  opacity1: {
+    opacity: 1,
+  },
+  /*#endregion */
 });

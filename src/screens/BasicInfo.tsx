@@ -21,7 +21,7 @@ const BasicInfoScreen = ({ route, navigation, theme }: ScreenProp) => {
 
   const selectedGender = useState(0);
   const selectedWeight = useState(71.0);
-  const selectedHeight = useState(6.7);
+  const selectedHeight = useState(5.4);
   const selectedFitness = useState(2);
 
   const customStyles = {
@@ -37,7 +37,6 @@ const BasicInfoScreen = ({ route, navigation, theme }: ScreenProp) => {
     stepIndicatorFinishedColor: "#ffffff",
     stepIndicatorUnFinishedColor: "#ffffff",
     stepIndicatorCurrentColor: "#ffffff",
-    // labelAlign: "flex-start",
   };
 
   const RenderStepsIndicator = ({ stepStatus }: StepsModel) => {

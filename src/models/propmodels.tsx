@@ -25,6 +25,9 @@ interface FitnessProp {
 }
 
 interface MesurementScaleProp {
-  start: any;
-  end: any;
+  start: number;
+  end: number;
+  partitions?: number;
+  theme: any;
+  selectedValue: any;
 }
