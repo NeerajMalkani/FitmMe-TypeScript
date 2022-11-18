@@ -23,8 +23,17 @@ const MeasrementScale = ({ start, end, theme, selectedValue, partitions = 5 }: M
     if (value.nativeEvent.locationY > 10 && value.nativeEvent.locationY < scaleHeight - marginTopValue) {
       setSliderPosition(value.nativeEvent.locationY);
       const topValue = value.nativeEvent.locationY / (scaleLineHeight + marginTopValue);
-      const selected = arrScale.length - 1.5 - topValue;
-      selectedValue[1](parseFloat((selected / partitions + 1).toFixed(1)));
+      const selected = (end - start) * partitions - topValue;
+      const sv = (selected / partitions + start).toFixed(2);
+      const svbd = sv.split(".")[0];
+      let svad = "0";
+      if(parseInt(sv.split(".")[1]) > 99){
+        svad = sv.split(".")[1];
+      } else {
+        svad = sv.split(".")[1].substring(0, 1);
+      }
+      console.log(svad);
+      selectedValue[1](parseFloat(svbd + "." + svad));
     }
   };
 
